@@ -1,0 +1,13 @@
+@media (max-width: 767.98px) {
+	.footer-about h3,
+	.footer-about p,
+	.footer-contact h3,
+	.footer-contact p {
+		text-align: center;
+	}
+
+	.footer-about,
+	.footer-contact {
+		margin-bottom: 1.5rem;
+	}
+}

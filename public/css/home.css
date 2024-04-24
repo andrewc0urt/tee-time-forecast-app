@@ -1,0 +1,10 @@
+@media (max-width: 767.98px) {
+	form {
+		margin-bottom: 2rem;
+	}
+
+	#submit-btn-container {
+		display: flex;
+		justify-content: center;
+	}
+}
