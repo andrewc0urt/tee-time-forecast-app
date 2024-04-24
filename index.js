@@ -1,8 +1,6 @@
 // Load the GeoApify API Key in the .env file
 require("dotenv").config();
-const apiKey = process.env.GEOAPIFY_API_KEY;
-
-console.log(process.env); // remove this
+const geoAPIKey = process.env.GEOAPIFY_API_KEY;
 
 const axios = require("axios");
 const express = require("express");
@@ -37,39 +35,62 @@ app.get("/", (req, res) => {
 });
 
 // GET route - API call for search results
-app.get("/search", (req, res) => {
-	const { city, state, zipCode } = req.query;
-	console.log(city);
-	console.log(state);
-	console.log(zipCode);
-	try {
-		// Make API request using Axios based on city/state OR zip code entered by user
-		if (city && state) {
-		} else if (zipCode) {
-			const config = {
-				method: "get",
-				url: `https://api.geoapify.com/v1/geocode/search?text=${zipCode}&format=json&apiKey=${apiKey}`,
-				headers: {},
-			};
+app.get("/search", async (req, res) => {
+	let { city, state, zipCode } = req.query;
 
-			axios(config)
-				.then(function (response) {
-					console.log(response.data);
-					console.log(response.data.results[0].lon);
-					console.log(response.data.results[0].lat);
-				})
-				.catch(function (error) {
-					console.log(error);
-				});
-		} else {
-			// Handle the case where neither
-			throw new Error("Please provide either city/state OR zip code.");
+	// convert the city to title case to ensure it matches the Geoapify response values
+	// Convert the city to title case to ensure it matches the Geoapify response values
+	const formattedCity = (city) => city.charAt(0).toUpperCase() + city.slice(1).toLowerCase();
+	city = formattedCity(city);
+
+	try {
+		// declare variables for the api url and it's required paramaters
+		let apiURL;
+		let queryParams;
+
+		// if the user submitted a city and state through the form
+		if (city && state) {
+			apiURL = "https://api.geoapify.com/v1/geocode/search";
+			queryParams = `text=${city}%2C%20${state}`;
 		}
 
-		res.send("Results page!");
+		// if the user submitted the zip code
+		else if (zipCode) {
+			apiURL = "https://api.geoapify.com/v1/geocode/search";
+			queryParams = `text=${zipCode}`;
+		} else {
+			res.status(400).send("Bad Request. Please try again!");
+		}
+
+		const response = await axios.get(`${apiURL}?${queryParams}&format=json&apiKey=${geoAPIKey}`);
+
+		// response object
+		const results = response.data.results;
+		// console.log(results);
+
+		// Check to see if the API call returned any results
+		if (results.length === 0) {
+			res.status(404).send("No results found. Please try again.");
+		}
+
+		// Check to see if the first result's city and state match the user's input
+		const firstResult = results[0];
+		if (city && state && (firstResult.city !== city || firstResult.state_code !== state)) {
+			res.status(404).send("Sorry! No results were found matching your city and/or state.");
+		}
+
+		// Otherwise, a match has been found, proceed with processing the results
+		console.log(firstResult.lon);
+		console.log(firstResult.lat);
+		console.log(firstResult.city);
+		console.log(firstResult.state);
+
+		// Display the info
+		res.send("Found a result!!!");
 	} catch (error) {
-		console.log("Errorrrrr");
-		res.send("ISSUE");
+		// Some internal server error has occurred
+		console.log(`Error: ${error}`);
+		res.status(500).send("Internal server error. Please wait a moment and try again.");
 	}
 });
 

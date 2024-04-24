@@ -34,7 +34,7 @@
 
 				<div class="mb-3">
 					<label for="state">State:</label>
-					<select name="state" class="form-select" id="state">
+					<select name="state" class="form-select" id="state" >
 						<option value="">Select State</option>
 						<option value="AL">Alabama</option>
 						<option value="AK">Alaska</option>
@@ -99,7 +99,7 @@
 				</div>
 
 				<div id="submit-btn-container">
-					<button type="submit" class="btn btn-primary">Submit</button>
+					<button type="submit" class="btn btn-primary" id="submit-button">Submit</button>
 				</div>
 			</form>
 		</div>
@@ -107,6 +107,8 @@
 		</div>
 
 		<%- include('partials/footer') %>
+
+		<script src="/js/formLogic.js"></script>
 		
 	</body>
 </html>
