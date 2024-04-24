@@ -36,7 +36,7 @@ app.get("/", (req, res) => {
 
 // GET route - API call for search results
 app.get("/search", async (req, res) => {
-	let { city, state, zipCode } = req.query;
+	let { city, state, zipCode, formatted } = req.query;
 
 	// convert the city to title case to ensure it matches the Geoapify response values
 	// Convert the city to title case to ensure it matches the Geoapify response values
@@ -66,7 +66,7 @@ app.get("/search", async (req, res) => {
 
 		// response object
 		const results = response.data.results;
-		// console.log(results);
+		console.log(results);
 
 		// Check to see if the API call returned any results
 		if (results.length === 0) {
@@ -84,6 +84,7 @@ app.get("/search", async (req, res) => {
 		console.log(firstResult.lat);
 		console.log(firstResult.city);
 		console.log(firstResult.state);
+		console.log(firstResult.formatted);
 
 		// Display the info
 		res.send("Found a result!!!");
