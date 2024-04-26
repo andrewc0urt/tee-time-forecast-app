@@ -7,5 +7,39 @@
 	</head>
 	<body>
 		<h1>Results Page</h1>
+
+		<!-- formatted string from geoapify api response object -->
+		<p><%= `${firstResult.formatted}` %></p>
+
+		<div>
+			<p>Temperature:<%= `${currentWeatherData.properties.temperature.value}` %></p>
+			<p>Wind Direction:<%= `${currentWeatherData.properties.windDirection.value}` %></p>
+			<p>Wind Speed:<%= `${currentWeatherData.properties.windSpeed.value}` %></p>
+		</div>
+
+		<h4>5 Day Forecast</h4>
+
+		<div>
+			<p><%= forecastData.properties.periods[0].name %></p>
+			<p><%= forecastData.properties.periods[0].shortForecast %></p>
+
+			<div>
+				<img src="images/weather/cloudy-day-1.svg" alt="ICON">
+			</div>
+
+			
+			<p>Temperature <%= forecastData.properties.periods[0].temperature %>&#176 F</p>
+			<p><%= forecastData.properties.periods[0].name %></p>
+			<p>Chance of Rain: <%= forecastData.properties.periods[0].probabilityOfPrecipitation.value %>%</p>
+
+			<p>Wind: <%= `${forecastData.properties.periods[0].windSpeed} ${forecastData.properties.periods[0].windDirection}` %></p>
+			<p><%= forecastData.properties.periods[0].detailedForecast %></p>
+			<p><%= forecastData.properties.periods[0].name %></p>
+		</div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
 	</body>
 </html>
