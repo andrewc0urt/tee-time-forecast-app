@@ -7,16 +7,17 @@ const path = require("path");
 // Load the GeoApify API Key in the .env file
 require("dotenv").config();
 const geoAPIKey = process.env.GEOAPIFY_API_KEY;
+const openWeatherAPIKey = process.env.OPENWEATHER_API_KEY;
 
-// Define a fetchWeatherData function to make multiple API calls to the National Weather Service API
+// Define a fetchWeatherData function to make multiple API calls to the National Weather Service API and then the OpenWeather API
 async function fetchWeatherData(latitude, longitude) {
 	try {
-		// First, make an API call to get the metatdata for a given latitude/longitude point; This will contain tge URL needed to get the multiday weather forecast for the area
-		const weatherAPI = `https://api.weather.gov/points/${latitude},${longitude}`;
-		const response1 = await axios.get(weatherAPI);
+		// First, make an API call to the National Weather Service to get the metatdata for a given latitude/longitude point; This will contain the URL needed to get the multiday weather forecast for the area
+		const nationalWeatherServiceAPI = `https://api.weather.gov/points/${latitude},${longitude}`;
+		const response1 = await axios.get(nationalWeatherServiceAPI);
 		const weatherMetadata = response1.data;
 
-		console.log(`Weather API URL: ${weatherAPI}`);
+		console.log(`Weather API URL: ${nationalWeatherServiceAPI}`);
 		console.log(`Weather Metadata: ${weatherMetadata}`);
 
 		// Extract the URL used to get the multiday weather forecast and the URL to be used to get the local weather station code (which will then be used to get the current weather data)
@@ -36,20 +37,29 @@ async function fetchWeatherData(latitude, longitude) {
 		const currentWeatherURL = allStationsData.observationStations[0];
 		console.log(`Current Weather URL: ${currentWeatherURL}`);
 
-		// Make the third API call to get the CURRENT weather
+		// Make the third API call to get the CURRENT weather from National Weather Service
 		const response3 = await axios.get(`${currentWeatherURL}/observations/latest`);
 		const currentWeatherData = response3.data;
 
 		console.log(`Current Weather Daa: ${currentWeatherData}`);
 
-		// Make the FOURTH API call to get the multiday weather forecast
+		// Make the FOURTH API call to get the multiday weather forecast from National Weather Service
 		const response4 = await axios.get(forecastURL);
 		const forecastData = response4.data;
 
 		console.log(`Future Forecast Data: ${forecastData}`);
 
+		// OpenWeather API - To get better CURRENT weather data
+		const openWeatherAPI = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${openWeatherAPIKey}&units=imperial`;
+
+		// API call to OpeanWeather API to get the current weather data
+		const response5 = await axios.get(openWeatherAPI);
+		const currentWeatherConditionsData = response5.data;
+		console.log("THIS IS THE NEWWW INFO");
+		console.log(currentWeatherConditionsData);
+
 		// Return all necessary weather data
-		return { currentWeatherData, forecastData };
+		return { currentWeatherData, forecastData, currentWeatherConditionsData };
 	} catch (error) {
 		// Handle any errors for the API calls
 		console.error("Error fetching data:", error.message);
@@ -75,7 +85,7 @@ app.use(express.urlencoded({ extended: true }));
 let latitude;
 let longitude;
 // Access the Weather Channel API
-const weatherAPI = `https://api.weather.gov/points/${latitude},${longitude}`;
+const nationalWeatherServiceAPI = `https://api.weather.gov/points/${latitude},${longitude}`;
 
 // GET route - Homepage
 app.get("/", (req, res) => {
@@ -90,7 +100,7 @@ app.get("/search", async (req, res) => {
 	// Convert the city to title case to ensure it matches the Geoapify response values
 	// const formattedCity = (city) => city.charAt(0).toUpperCase() + city.slice(1).toLowerCase();
 
-	// Define the formattedCity function so that all cities are converted to title case, including cities with multiple words (i.e. "jefferson city" --> "Jefferson City")
+	// Define the formattedCity function so that all cities entered by a user in the form are converted to title case, including cities with multiple words (i.e. "jefferson city" --> "Jefferson City")
 	function titleCaseCityInput(someCity) {
 		// Split the city string by spaces
 		const words = someCity.split(" ");
@@ -102,6 +112,7 @@ app.get("/search", async (req, res) => {
 
 		// Join the capitalized words back together
 		const formattedCity = capitalizedWords.join(" ");
+		console.log(`FORMATTED CITY: ${formattedCity}`);
 
 		return formattedCity;
 	}
@@ -139,8 +150,31 @@ app.get("/search", async (req, res) => {
 
 		// Check to see if the first result's city and state match the user's input
 		const firstResult = results[0];
-		if (city && state && (firstResult.city !== city || firstResult.state_code !== state)) {
-			res.status(404).send("Sorry! No results were found matching your city and/or state.");
+
+		// Check to ensure that firstResult object contains a city and state
+		// if (city && state) {
+		// 	// Check if either the city or the name matches the user input
+		// 	// firstResult should have either a city property or a name property (i.e. Keystone, CO --> has a name property, but not city property)
+		// 	if (
+		// 		(firstResult.city && firstResult.city !== city) ||
+		// 		(!firstResult.city && firstResult.name !== city)
+		// 	) {
+		// 		return res
+		// 			.status(404)
+		// 			.send("Sorry! No results were found matching your city and/or state.");
+		// 	}
+
+		// 	// Check if the state code is a match to the user input
+		// 	if (firstResult.state_code !== state) {
+		// 		return res
+		// 			.status(404)
+		// 			.send("Sorry! No results were found matching your city and/or state.");
+		// 	}
+		// }
+
+		// Check if the state code is a match to the user input
+		if (firstResult.state_code !== state) {
+			return res.status(404).send("Sorry! No results were found matching your city and/or state.");
 		}
 
 		// Otherwise, a match has been found, proceed with processing the results
@@ -148,15 +182,13 @@ app.get("/search", async (req, res) => {
 		console.log(firstResult.lat);
 		// console.log(firstResult.city);
 		// console.log(firstResult.state);
-		// console.log(firstResult.formatted);
+		console.log(firstResult.formatted);
 
 		console.log(firstResult);
 
 		// Call fetchWeatherData here, passing latitude and longitude
-		const { currentWeatherData, forecastData } = await fetchWeatherData(
-			firstResult.lat,
-			firstResult.lon
-		);
+		const { currentWeatherData, forecastData, currentWeatherConditionsData } =
+			await fetchWeatherData(firstResult.lat, firstResult.lon);
 
 		console.log("-------------INFO BELOW ----------------");
 		console.log(currentWeatherData);
@@ -166,7 +198,12 @@ app.get("/search", async (req, res) => {
 
 		// Display the info
 		// res.send("Found a result!!!");
-		res.render("searchResults", { firstResult, currentWeatherData, forecastData });
+		res.render("searchResults", {
+			firstResult,
+			currentWeatherData,
+			forecastData,
+			currentWeatherConditionsData,
+		});
 	} catch (error) {
 		// Some internal server error has occurred
 		console.log(`Error: ${error}`);

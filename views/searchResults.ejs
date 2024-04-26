@@ -30,16 +30,38 @@
 			
 			<p>Temperature <%= forecastData.properties.periods[0].temperature %>&#176 F</p>
 			<p><%= forecastData.properties.periods[0].name %></p>
-			<p>Chance of Rain: <%= forecastData.properties.periods[0].probabilityOfPrecipitation.value %>%</p>
+
+			<% if (forecastData.properties.periods[0].probabilityOfPrecipitation.value === null) {%>
+				<p>Chance of Precipitation: 0%</p>
+				<% } else { %>
+					<p>Chance of Rain: <%= forecastData.properties.periods[0].probabilityOfPrecipitation.value %>%</p>
+					<% } %>
+
 
 			<p>Wind: <%= `${forecastData.properties.periods[0].windSpeed} ${forecastData.properties.periods[0].windDirection}` %></p>
 			<p><%= forecastData.properties.periods[0].detailedForecast %></p>
 			<p><%= forecastData.properties.periods[0].name %></p>
 		</div>
-		<div></div>
-		<div></div>
-		<div></div>
-		<div></div>
-		<div></div>
+		<div>-</div>
+		<div>-</div>
+		<div>-</div>
+		<div>-</div>
+		<div>-</div>
+		<h3>CURRENT WEATHER CONDITIONS</h3>
+
+		
+
+		<!-- If the National Weather Service doesn't have a textDescription value for the current weather condition, then use the OpenWeather API description -->
+		<% if (currentWeatherData.properties.textDescription === "") {%>
+			<p><%= currentWeatherConditionsData.weather[0].main
+ %></p>
+			<% } else { %>
+			 <p><%= currentWeatherData.properties.textDescription %></p>
+			 <% } %>
+
+		<p>Current Temp: <%= Math.round(currentWeatherConditionsData.main.temp) %>&#176 F</p>
+		<p>Feels Like: <%= Math.round(currentWeatherConditionsData.main.feels_like) %>&#176 F</p>
+		<p>Wind: <%= Math.round(currentWeatherConditionsData.wind.speed) %>mph</p>
+		<p>Humidity: <%= currentWeatherConditionsData.main.humidity %>%</p>
 	</body>
 </html>
