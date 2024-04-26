@@ -172,10 +172,19 @@ app.get("/search", async (req, res) => {
 		// 	}
 		// }
 
-		// Check if the state code is a match to the user input
-		if (firstResult.state_code !== state) {
-			return res.status(404).send("Sorry! No results were found matching your city and/or state.");
+		// if the user doesn't submit a zip code and chooses to submit a city/state, check to make sure the returned result matches the state code
+		if (!zipCode) {
+			// Check if the state code is a match to the user input
+			if (firstResult.state_code !== state) {
+				return res
+					.status(404)
+					.send("Sorry! No results were found matching your city and/or state.");
+			}
 		}
+		// // Check if the state code is a match to the user input
+		// if (firstResult.state_code !== state) {
+		// 	return res.status(404).send("Sorry! No results were found matching your city and/or state.");
+		// }
 
 		// Otherwise, a match has been found, proceed with processing the results
 		console.log(firstResult.lon);
@@ -195,7 +204,11 @@ app.get("/search", async (req, res) => {
 		console.log("----------------------------");
 		console.log(forecastData);
 		console.log(forecastData.properties.periods[0]);
-
+		if (forecastData.properties.periods[0].isDaytime) {
+			console.log("Daytime is true");
+		} else {
+			console.log("Day time is false");
+		}
 		// Display the info
 		// res.send("Found a result!!!");
 		res.render("searchResults", {
