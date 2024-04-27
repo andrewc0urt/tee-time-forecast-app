@@ -9,6 +9,8 @@ submitButton.disabled = true;
 
 // event listener to enable the submit button if the user has entered a 5-digit zip code
 zipCodeInput.addEventListener("input", (event) => {
+	console.log("Zip Code Input Event Triggered");
+	console.log("Zip Code Value:", zipCodeInput.value);
 	if (zipCodeInput.value === "" || zipCodeInput.value.length < 5) {
 		cityInput.required = true;
 		stateSelect.required = true;
@@ -17,6 +19,8 @@ zipCodeInput.addEventListener("input", (event) => {
 
 	// require the city input and state input
 	else {
+		console.log("Valid Zip Code Entered");
+
 		cityInput.required = false;
 		stateSelect.required = false;
 		submitButton.disabled = false;

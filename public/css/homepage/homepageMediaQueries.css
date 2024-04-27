@@ -1,0 +1,40 @@
+/* Media query for small screens and down */
+@media (max-width: 767.98px) {
+	body {
+		background-position: right;
+	}
+
+	form {
+		column-gap: 0.5rem;
+		/* grid-template-columns: auto auto; */
+	}
+
+	.city-input-grid,
+	.state-select-grid,
+	.zipCode-input-grid {
+		width: 100%;
+	}
+
+	.city-label-grid,
+	.state-label-grid,
+	#or-option,
+	.zipCode-label-grid {
+		font-size: 1rem;
+	}
+}
+
+/* Media query for medium screens and up */
+@media (min-width: 768px) {
+	.item-1 {
+		margin-top: 2rem;
+	}
+
+	#logo-link {
+		font-size: 3rem;
+	}
+
+	#submit-button {
+		width: 25%;
+		padding: 0.5em 1.5em;
+	}
+}

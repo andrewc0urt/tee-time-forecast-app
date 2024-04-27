@@ -89,7 +89,7 @@ const nationalWeatherServiceAPI = `https://api.weather.gov/points/${latitude},${
 
 // GET route - Homepage
 app.get("/", (req, res) => {
-	res.render("home");
+	res.render("homepage");
 });
 
 // GET route - API call for search results
@@ -134,7 +134,7 @@ app.get("/search", async (req, res) => {
 			apiURL = "https://api.geoapify.com/v1/geocode/search";
 			queryParams = `text=${zipCode}`;
 		} else {
-			res.status(400).send("Bad Request. Please try again!");
+			return res.status(400).send("Bad Request. Please try again!");
 		}
 
 		const response = await axios.get(`${apiURL}?${queryParams}&format=json&apiKey=${geoAPIKey}`);

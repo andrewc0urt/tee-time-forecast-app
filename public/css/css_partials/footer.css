@@ -1,0 +1,52 @@
+@media (max-width: 767.98px) {
+	footer {
+		text-align: center;
+		color: white;
+	}
+
+	/* .footer-container p {
+		margin: 8px 0;
+	} */
+
+	.footer-about-container {
+		visibility: hidden;
+	}
+
+	.footer-contact-container {
+		margin-top: 4rem;
+	}
+
+	.footer-contact-container h3 {
+		margin: 0;
+	}
+
+	.footer-contact-container p {
+		margin: 8px 0;
+	}
+
+	#contact-email {
+		color: white;
+		text-decoration: none;
+	}
+
+	#contact-email:hover {
+		cursor: pointer;
+	}
+
+	#contact-email:visited {
+		color: white; /* Set the color to white for visited links */
+		text-decoration: none;
+	}
+
+	.email-icon {
+		vertical-align: middle;
+
+		.footer-bottom {
+			margin-top: 1rem;
+		}
+
+		.footer-bottom p {
+			margin: 0;
+		}
+	}
+}
