@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Results Page</title>
+
+		<!-- Google Font - Open Sans -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+			rel="stylesheet"
+		/>
+
+		<!-- link the bootstrap css -->
+		<!-- <link rel="stylesheet" href="/css/bootstrap.min.css" /> -->
+		<!-- link the bootstrap jquery -->
+		<!-- <script src="/js/bootstrap.min.js"></script> -->
+		<!-- link the bootstrap js -->
+		<!-- <script src="/js/bootstrap.min.js"></script> -->
+
+		<!-- link all css files -->
+		<link rel="stylesheet" href="/css/homepage/homepage.css" />
+		<link rel="stylesheet" href="/css/homepage/homepageMediaQueries.css">
+		<link rel="stylesheet" href="/css/css_partials/footer.css">
+	</head>
+
+
+	<body>
+		<div class="grid-container">
+			<!-- Grid Item for the Header (app name only) -->
+			<div class="item-1">
+				<a href="#" id="logo-link">
+					Tee Time Forecast
+				</a>
+			</div>
+
+			<div class="item-2">
+				<p id="intro-p1">Plan your perfect tee time effortlessly!</p>
+
+				<p id="intro-p2">
+					Enter your location or zip code to get real-time weather conditions and a 5-day forecast.
+				</p>
+			</div>
+
+			<!-- Grid Item for the Form -->
+			<div class="item-3">
+				<form action="/search" method="GET">
+					<!-- City Input -->
+					<label for="city" class="form-label city-label-grid">City:</label>
+					<input
+						type="text"
+						name="city"
+						class="form-control city-input-grid"
+						id="city"
+						aria-describedby="cityName"
+					/>
+
+					<!-- State Select  -->
+
+					<label class="state-label-grid" for="state">State:</label>
+					<select name="state" class="form-select state-select-grid" id="state">
+						<option value="">Select State</option>
+						<option value="AL">Alabama</option>
+						<option value="AK">Alaska</option>
+						<option value="AZ">Arizona</option>
+						<option value="AR">Arkansas</option>
+						<option value="CA">California</option>
+						<option value="CO">Colorado</option>
+						<option value="CT">Connecticut</option>
+						<option value="DE">Delaware</option>
+						<option value="DC">District Of Columbia</option>
+						<option value="FL">Florida</option>
+						<option value="GA">Georgia</option>
+						<option value="HI">Hawaii</option>
+						<option value="ID">Idaho</option>
+						<option value="IL">Illinois</option>
+						<option value="IN">Indiana</option>
+						<option value="IA">Iowa</option>
+						<option value="KS">Kansas</option>
+						<option value="KY">Kentucky</option>
+						<option value="LA">Louisiana</option>
+						<option value="ME">Maine</option>
+						<option value="MD">Maryland</option>
+						<option value="MA">Massachusetts</option>
+						<option value="MI">Michigan</option>
+						<option value="MN">Minnesota</option>
+						<option value="MS">Mississippi</option>
+						<option value="MO">Missouri</option>
+						<option value="MT">Montana</option>
+						<option value="NE">Nebraska</option>
+						<option value="NV">Nevada</option>
+						<option value="NH">New Hampshire</option>
+						<option value="NJ">New Jersey</option>
+						<option value="NM">New Mexico</option>
+						<option value="NY">New York</option>
+						<option value="NC">North Carolina</option>
+						<option value="ND">North Dakota</option>
+						<option value="OH">Ohio</option>
+						<option value="OK">Oklahoma</option>
+						<option value="OR">Oregon</option>
+						<option value="PA">Pennsylvania</option>
+						<option value="RI">Rhode Island</option>
+						<option value="SC">South Carolina</option>
+						<option value="SD">South Dakota</option>
+						<option value="TN">Tennessee</option>
+						<option value="TX">Texas</option>
+						<option value="UT">Utah</option>
+						<option value="VT">Vermont</option>
+						<option value="VA">Virginia</option>
+						<option value="WA">Washington</option>
+						<option value="WV">West Virginia</option>
+						<option value="WI">Wisconsin</option>
+						<option value="WY">Wyoming</option>
+					</select>
+
+					<div id="or-option">
+						<p><b>OR</b></p>
+					</div>
+
+					
+					<label for="zipCode" class="form-label zipCode-label-grid">Zip Code:</label>
+					<input
+						type="text"
+						name="zipCode"
+						class="form-control zipCode-input-grid"
+						id="zipCode"
+						pattern="\d{5}"
+						title="Five digit zip Code"
+					/>
+					
+
+					
+					<button type="submit" class="form-button-grid submit-button" id="submit-button">Submit
+				</form>
+			</div>
+
+			<%- include('partials/footer.ejs') %>
+
+	<!-- <footer>
+		<div class="footer-container">
+		
+			<div class="footer-about-container">
+				<h3>About Tee Time Forecast</h3>
+				<p id="footer-description">
+					Discover the latest weather forecasts tailored for golf enthusiasts. Tee Time Forecast
+					provides accurate predictions to help you plan your next golf outing with confidence.
+				</p>
+			</div>
+			<div class="footer-contact-container">
+				<h3>Contact Us</h3>
+				<p>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="16"
+						height="16"
+						fill="currentColor"
+						class="bi bi-envelope email-icon"
+						viewBox="0 0 16 16"
+					>
+						<path
+							d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z"
+						/>
+					</svg>
+					<a id="contact-email" href="mailto:andrew.court.dev@gmail.col">andrew.court.dev@gmail.com</a>
+				</p>
+			</div>
+	
+	</div>
+	<div class="footer-copyright-container">
+		<p>&copy; 2024 Tee Time Forecast. All rights reserved.</p>
+	</div>
+</footer> -->
+
+
+
+		</div>
+
+		
+	</body>
+</html>
