@@ -181,6 +181,8 @@ footer {
 	user-select: none;
 	-webkit-user-select: none;
 	touch-action: manipulation;
+
+	margin-left: 25%;
 }
 
 #submit-button:disabled::before {
