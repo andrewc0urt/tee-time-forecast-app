@@ -247,7 +247,7 @@ app.get("/search", async (req, res) => {
 
 		// Display the info
 		// res.send("Found a result!!!");
-		res.render("searchResults", {
+		res.render("results", {
 			firstResult,
 			currentWeatherData,
 			forecastData,

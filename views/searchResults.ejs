@@ -11,7 +11,7 @@
 		<h1>Results Page</h1>
 
 		<!-- formatted string from geoapify api response object -->
-		<p><%= `${firstResult.formatted}` %></p>
+		<p><%= `${firstResult.address_line1}` %></p>
 
 		<div>
 			<p>Temperature:<%= `${currentWeatherData.properties.temperature.value}` %></p>
@@ -79,22 +79,16 @@
 		<!-- for loop to only get the 5-day forecast and not 7 day -->
 		<!-- to get the full 7-day: index < multidayForecast.length; instead of 11-->
 		<% for( let index = 0; index < 11; index++ ) { %>
-			<div id="weather-period-container">
+			<div id="weather-period-container" class="item5-child<%= index+1 %>">
 				<p><%= forecastData.properties.periods[index].name %></p>
-				<p><%= forecastData.properties.periods[index].shortForecast %></p>
+				<p><%= forecastData.properties.periods[index].detailedForecast %></p>
 				<p>Temperature <%= forecastData.properties.periods[0].temperature %>&#176 F</p>
 
 				<% if (forecastData.properties.periods[index].probabilityOfPrecipitation.value === null) {%>
 					<p>Chance of Precipitation: 0%</p>
-					<% } else { %>
-						<p>Chance of Rain: <%= forecastData.properties.periods[index].probabilityOfPrecipitation.value %>%</p>
-						<% } %>
-
-
-				<p>Wind: <%= `${forecastData.properties.periods[index].windSpeed} ${forecastData.properties.periods[index].windDirection}` %></p>
-				<p><%= forecastData.properties.periods[index].detailedForecast %></p>
-			</div>
-				
+				<% } else { %>
+					<p>Chance of Rain: <%= forecastData.properties.periods[index].probabilityOfPrecipitation.value %>%</p>
+				<% } %>
 			
 		<% } %>
 	</body>
