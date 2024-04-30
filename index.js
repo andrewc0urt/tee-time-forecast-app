@@ -82,11 +82,6 @@ app.use(express.json());
 // for parsing application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 
-let latitude;
-let longitude;
-// Access the Weather Channel API
-const nationalWeatherServiceAPI = `https://api.weather.gov/points/${latitude},${longitude}`;
-
 // GET route - Homepage
 app.get("/", (req, res) => {
 	res.render("homepage");
@@ -212,47 +207,77 @@ app.get("/search", async (req, res) => {
 
 		// Weather Condition Object - holds path to weather condition icon based on the currentWeatherConditionsData.weather[0].icon in the OpenWeather API response json object
 
-		const weatherConditions = {
-			"01d": "images/weather/day/sunny.svg",
-			"01n": "images/weather/night/night.svg",
+		// const weatherConditions = {
+		// 	"01d": "images/weather/day/sunny.svg",
+		// 	"01n": "images/weather/night/night.svg",
 
-			"02d": "images/weather/day/partlyCloudy.svg",
-			"02n": "images/weather/night/night.svg",
+		// 	"02d": "images/weather/day/partlyCloudy.svg",
+		// 	"02n": "images/weather/night/night.svg",
 
-			"03d": "images/weather/day/cloudy.svg",
-			"03n": "images/weather/night/cloudy.svg",
+		// 	"03d": "images/weather/day/cloudy.svg",
+		// 	"03n": "images/weather/night/cloudy.svg",
 
-			"04d": "images/weather/day/cloudy.svg",
-			"04n": "images/weather/night/cloudy.svg",
+		// 	"04d": "images/weather/day/cloudy.svg",
+		// 	"04n": "images/weather/night/cloudy.svg",
 
-			"09d": "images/weather/day/rainShowers.svg",
-			"09n": "public/images/weather/night/nightRainShowers.svg",
+		// 	"09d": "images/weather/day/rainShowers.svg",
+		// 	"09n": "public/images/weather/night/nightRainShowers.svg",
 
-			"10d": "images/weather/day/rain.svg",
-			"10d": "images/weather/day/rain.svg",
+		// 	"10d": "images/weather/day/rain.svg",
+		// 	"10d": "images/weather/day/rain.svg",
 
-			"11d": "images/weather/day/thunderstorm.svg",
-			"11n": "images/weather/night/thunderstorm.svg",
+		// 	"11d": "images/weather/day/thunderstorm.svg",
+		// 	"11n": "images/weather/night/thunderstorm.svg",
 
-			"13d": "images/weather/day/snow.svg",
-			"13n": "images/weather/night/snow.svg",
+		// 	"13d": "images/weather/day/snow.svg",
+		// 	"13n": "images/weather/night/snow.svg",
 
-			"50d": "images/weather/day/snow.svg",
-			"50n": "images/weather/night/snow.svg",
-		};
+		// 	"50d": "images/weather/day/snow.svg",
+		// 	"50n": "images/weather/night/snow.svg",
+		// };
 
-		console.log(weatherConditions);
-		console.log("-----------------------");
-		console.log(weatherConditions[currentWeatherConditionsData.weather[0].main]);
+		// weatherConditions = {
+		// 	"01d": "images/weather/sunnyClear.jpg",
+		// 	"01n": "images/weather/night.jpg",
+
+		// 	"02d": "images/weather/partlyCloudy.jpg",
+		// 	"02n": "images/weather/night.jpg",
+
+		// 	"03d": "images/weather/cloudy.jpg",
+		// 	"03n": "images/weather/night.jpg",
+
+		// 	"04d": "images/weather/cloudy.jpg",
+		// 	"04n": "images/weather/night.jpg",
+
+		// 	"09d": "images/weather/raining.jpg",
+		// 	"09n": "images/weather/night.jpg",
+
+		// 	"10d": "images/weather/raining.jpg",
+		// 	"10d": "images/weather/night.jpg",
+
+		// 	"11d": "images/weather/thunderstorm.jpg",
+		// 	"11n": "images/weather/night.jpg",
+
+		// 	"13d": "images/weather/snowing.jpg",
+		// 	"13n": "images/weather/night.jpg",
+
+		// 	"50d": "images/weather/snowing.jpg",
+		// 	"50n": "images/weather/night.jpg",
+		// };
+
+		// console.log(weatherConditions);
+		// console.log("-----------------------");
+		// console.log(weatherConditions[currentWeatherConditionsData.weather[0].main]);
+		// console.log(`${weatherConditions[currentWeatherConditionsData.weather[0].icon]}`);
 
 		// Display the info
 		// res.send("Found a result!!!");
+
 		res.render("results", {
 			firstResult,
 			currentWeatherData,
 			forecastData,
 			currentWeatherConditionsData,
-			weatherConditions,
 		});
 	} catch (error) {
 		// Some internal server error has occurred
