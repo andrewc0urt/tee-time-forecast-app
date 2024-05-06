@@ -1,0 +1,420 @@
+* {
+	box-sizing: border-box;
+	/* min-height: 100vh; */
+	font-family: "Open Sans", sans-serif;
+	color: white;
+	font-weight: 500;
+}
+
+body {
+	background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+		url("../../images/backgrounds/shelter-FdBGX44aNZM-unsplash.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: right;
+	min-height: 100vh;
+}
+
+.grid-container {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	/* grid-template-rows: 100px 150px 300px; */
+	grid-template-rows: repeat(7, auto);
+	row-gap: 1rem;
+	min-height: 100vh;
+
+	text-align: center;
+}
+
+.item-1 {
+	grid-column: 1 / span 2;
+	grid-row: 1;
+	/* background-color: antiquewhite; */
+
+	/* Make the grid-item a flex container to control the layout */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#logo-link {
+	font-size: 2.5rem;
+	text-decoration: none;
+	color: white;
+	font-weight: 700;
+}
+
+.item-2 {
+	grid-column: 1 / span 2;
+	grid-row: 2;
+	/* background-color: green; */
+	color: white;
+	font-weight: 500;
+
+	/* Make the grid-item a flex container to control the layout */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.item-2 p {
+	font-size: 1.2rem;
+	font-weight: 600;
+}
+
+.item-3 {
+	grid-column: 1 / span 2;
+	grid-row: 3;
+	/* background-color: aliceblue; */
+
+	/* display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: repeat(6, auto); */
+
+	/* background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+		url("../../images/weather/temp1.jpg"); */
+	/* background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+		url("../../images/weather/anna-atkins-rNBaaxyeWWM-unsplash.jpg"); */
+	/* background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+		url("../../images/weather/sam-schooler-E9aetBe2w40-unsplash.jpg"); */
+	/* background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+		url("../../images/weather/damien-modolo-CNoYkt3ZnmA-unsplash.jpg"); */
+
+	/* background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+		url("../../images/weather/nathan-fertig-scbYOgVyb8Q-unsplash.jpg"); */
+
+	/* background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+		url("../../images/weather/veronika-galkina-rvLvAXbEuqg-unsplash.jpg"); */
+
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+
+	/* make .item-3 a flex container to handle layout of the current weather conditions */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: white;
+	font-weight: 500;
+}
+
+.item3-child1 h2 {
+	font-weight: 800;
+}
+
+.item-4 {
+	grid-column: 1 / span 2;
+	grid-row: 4;
+	/* background-color: lightcyan; */
+}
+
+.item-4 h2 {
+	margin-bottom: 0;
+	padding-bottom: 1rem;
+	font-weight: 800;
+}
+
+.item-5 {
+	grid-column: 1 / span 2;
+	grid-row: 5;
+	/* background-color: lightgoldenrodyellow; */
+
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: repeat(11, auto);
+}
+
+.item5-child1 p:first-child {
+	margin-top: 0; /* Remove top margin */
+}
+.item-5 div p {
+	margin-bottom: 0;
+	font-weight: 400px;
+}
+
+.item-5 div p:first-child {
+	font-weight: 700;
+}
+.item-5 div p:last-child {
+	margin-bottom: 1rem;
+}
+
+.item5-child1 {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.item-6 {
+	grid-column: 1 / span 2;
+	grid-row: 6;
+	/* background-color: lightpink; */
+	min-height: 20vh;
+
+	/* Make the grid-item a flex container to control the layout */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.item6-child1 {
+	display: flex;
+	flex-direction: column;
+	height: 12vh;
+	justify-content: space-between;
+}
+
+.item-7 {
+	grid-column: 1 / span 2;
+	grid-row: 7;
+	/* background-color: lightseagreen; */
+}
+
+/* CSS for Both Buttons: */
+/* CSS */
+.item6-button {
+	padding: 0.6em 2em;
+	border: none;
+	outline: none;
+	color: rgb(255, 255, 255);
+	background: #111;
+	cursor: pointer;
+	position: relative;
+	z-index: 0;
+	border-radius: 10px;
+	user-select: none;
+	-webkit-user-select: none;
+	touch-action: manipulation;
+}
+
+.i6-btn {
+	font-weight: 500;
+}
+
+.item6-button:before {
+	content: "";
+	background: linear-gradient(
+		45deg,
+		#ff0000,
+		#ff7300,
+		#fffb00,
+		#48ff00,
+		#00ffd5,
+		#002bff,
+		#7a00ff,
+		#ff00c8,
+		#ff0000
+	);
+	position: absolute;
+	top: -2px;
+	left: -2px;
+	background-size: 400%;
+	z-index: -1;
+	filter: blur(5px);
+	-webkit-filter: blur(5px);
+	width: calc(100% + 4px);
+	height: calc(100% + 4px);
+	animation: glowing-item6-button 20s linear infinite;
+	transition: opacity 0.3s ease-in-out;
+	border-radius: 10px;
+}
+
+@keyframes glowing-item6-button {
+	0% {
+		background-position: 0 0;
+	}
+	50% {
+		background-position: 400% 0;
+	}
+	100% {
+		background-position: 0 0;
+	}
+}
+
+.item6-button:after {
+	z-index: -1;
+	content: "";
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background: #222;
+	left: 0;
+	top: 0;
+	border-radius: 10px;
+}
+
+/* Change the Background Colors and Text Color of Buttons when hovering */
+.item6-button:hover {
+	padding: 0.6em 2em;
+	border: none;
+	outline: none;
+	color: black;
+	background: white;
+	cursor: pointer;
+	position: relative;
+	z-index: 0;
+	border-radius: 10px;
+	user-select: none;
+	-webkit-user-select: none;
+	touch-action: manipulation;
+}
+
+.i6-btn {
+	font-weight: 500;
+}
+
+.item6-button:hover::before {
+	content: "";
+	background: linear-gradient(
+		45deg,
+		#ff0000,
+		#ff7300,
+		#fffb00,
+		#48ff00,
+		#00ffd5,
+		#002bff,
+		#7a00ff,
+		#ff00c8,
+		#ff0000
+	);
+	position: absolute;
+	top: -2px;
+	left: -2px;
+	background-size: 400%;
+	z-index: -1;
+	filter: blur(5px);
+	-webkit-filter: blur(5px);
+	width: calc(100% + 4px);
+	height: calc(100% + 4px);
+	animation: glowing-item6-button 20s linear infinite;
+	transition: opacity 0.3s ease-in-out;
+	border-radius: 10px;
+}
+
+@keyframes glowing-item6-button {
+	0% {
+		background-position: 0 0;
+	}
+	50% {
+		background-position: 400% 0;
+	}
+	100% {
+		background-position: 0 0;
+	}
+}
+
+.item6-button:hover::after {
+	z-index: -1;
+	content: "";
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background: white;
+	left: 0;
+	top: 0;
+	border-radius: 10px;
+}
+
+/* Style the Footer */
+footer {
+	text-align: center;
+	color: white;
+}
+
+/* .footer-container p {
+		margin: 8px 0;
+	} */
+
+.footer-about-container {
+	visibility: hidden;
+}
+
+.footer-contact-container {
+	margin-top: 4rem;
+}
+
+.footer-contact-container h3 {
+	margin: 0;
+}
+
+.footer-contact-container p {
+	margin: 8px 0;
+}
+
+#contact-email {
+	color: white;
+	text-decoration: none;
+}
+
+#contact-email:hover {
+	cursor: pointer;
+	color: blue;
+}
+
+#contact-email:visited {
+	color: white; /* Set the color to white for visited links */
+	text-decoration: none;
+}
+
+.email-icon {
+	vertical-align: middle;
+
+	.footer-bottom {
+		margin-top: 1rem;
+	}
+
+	.footer-bottom p {
+		margin: 0;
+	}
+}
+
+.footer-contact-container h3,
+.footer-contact-container p,
+.footer-copyright-container p {
+	font-size: 0.8rem;
+}
+
+/* Styling for the horizontal lines (border bottoms) on the results page separatin each forecast period */
+.item-5 div,
+.item-4 h2 {
+	position: relative;
+}
+
+.item-5 div:before,
+.item-4 h2:before {
+	content: "";
+	position: absolute;
+	bottom: 0;
+	/* left: 0;
+	width: 100%; */
+	left: 10%;
+	width: 80%;
+	height: 2px; /* Height of the border */
+	background: linear-gradient(
+		45deg,
+		#ff0000,
+		#ff7300,
+		#fffb00,
+		#48ff00,
+		#00ffd5,
+		#002bff,
+		#7a00ff,
+		#ff00c8,
+		#ff0000
+	);
+	background-size: 400%;
+	border-radius: 10px; /* Adjust as needed */
+	animation: glowing-border 20s linear infinite;
+}
+
+@keyframes glowing-border {
+	0% {
+		background-position: 0 0;
+	}
+	50% {
+		background-position: 400% 0;
+	}
+	100% {
+		background-position: 0 0;
+	}
+}

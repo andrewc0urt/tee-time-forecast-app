@@ -21,7 +21,8 @@
 	}
 
 	.footer-contact-container p {
-		margin: 8px 0;
+		/* margin: 8px 0; */
+		margin-top: 0;
 	}
 
 	#contact-email {

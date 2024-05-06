@@ -1,34 +1,34 @@
 {
-  "name": "tee-time-forecast",
-  "version": "1.0.0",
-  "description": "An app for golf enthusiasts to check real-time weather conditions, receive tee time forecasts, and discover local golf courses in their area.",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/andrewc0urt/tee-time-forecast-app.git"
-  },
-  "keywords": [
-    "golf",
-    "weather",
-    "forecast",
-    "\"tee",
-    "time\"",
-    "\"golf",
-    "course\""
-  ],
-  "author": "Andrew Court",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/andrewc0urt/tee-time-forecast-app/issues"
-  },
-  "homepage": "https://github.com/andrewc0urt/tee-time-forecast-app#readme",
-  "dependencies": {
-    "axios": "^1.6.8",
-    "dotenv": "^16.4.5",
-    "ejs": "^3.1.10",
-    "express": "^4.19.2"
-  }
+	"name": "tee-time-forecast",
+	"version": "1.0.0",
+	"description": "An app for golf enthusiasts to check real-time weather conditions, receive tee time forecasts, and discover local golf courses in their area.",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/andrewc0urt/tee-time-forecast-app.git"
+	},
+	"keywords": [
+		"golf",
+		"weather",
+		"forecast",
+		"\"tee",
+		"time\"",
+		"\"golf",
+		"course\""
+	],
+	"author": "Andrew Court",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/andrewc0urt/tee-time-forecast-app/issues"
+	},
+	"homepage": "https://github.com/andrewc0urt/tee-time-forecast-app#readme",
+	"dependencies": {
+		"axios": "^1.6.8",
+		"dotenv": "^16.4.5",
+		"ejs": "^3.1.10",
+		"express": "^4.19.2"
+	}
 }
