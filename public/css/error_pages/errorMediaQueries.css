@@ -1,0 +1,57 @@
+@media (max-width: 767.98px) {
+	.item-2 {
+		padding-top: 1.5rem;
+	}
+}
+
+@media (min-width: 768px) {
+	.item-1 {
+		width: 100%;
+		font-size: 1.25rem;
+	}
+
+	.item-2 {
+		padding-top: 2rem;
+	}
+
+	#error-title-container h2 {
+		/* font-family: Arial, Helvetica, sans-serif; */
+		/* font-size: 2rem; */
+		font-size: 3rem;
+		padding: 0 0.5rem;
+	}
+	.item2-button {
+		font-size: 1.2rem;
+	}
+
+	.footer-contact-container h3,
+	.footer-contact-container p,
+	.footer-copyright-container p {
+		font-size: 1rem;
+	}
+}
+
+@media (min-width: 820px) {
+	.grid-container {
+		grid-template-rows: repeat(4, 1fr);
+	}
+
+	.item-2 {
+		padding-top: 2.5rem;
+	}
+}
+
+@media (min-width: 992px) {
+	body {
+		/* background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.1)),
+			url("../../images/backgrounds/dean-ricciardi-08Ipbe8GpWw-unsplash.jpg"); */
+		grid-template-rows: 1fr 1fr 1fr;
+	}
+	.item-1 {
+		font-size: 2rem;
+	}
+
+	.item2-button {
+		font-size: 1.5rem;
+	}
+}

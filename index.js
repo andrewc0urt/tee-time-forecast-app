@@ -129,7 +129,8 @@ app.get("/search", async (req, res) => {
 			apiURL = "https://api.geoapify.com/v1/geocode/search";
 			queryParams = `text=${zipCode}`;
 		} else {
-			return res.status(400).send("Bad Request. Please try again!");
+			// return res.status(400).send("Bad Request. Please try again!");
+			return res.render("errorPage400");
 		}
 
 		const response = await axios.get(`${apiURL}?${queryParams}&format=json&apiKey=${geoAPIKey}`);
@@ -139,8 +140,9 @@ app.get("/search", async (req, res) => {
 		// console.log(results);
 
 		// Check to see if the API call returned any results
-		if (results.length === 0) {
-			res.status(404).send("No results found. Please try again.");
+		if (results.length === 0 || (results[0].city !== city && results[0].name !== city)) {
+			// res.status(404).send("No results found. Please try again.");
+			return res.render("errorPage404");
 		}
 
 		// Check to see if the first result's city and state match the user's input
@@ -171,9 +173,10 @@ app.get("/search", async (req, res) => {
 		if (!zipCode) {
 			// Check if the state code is a match to the user input
 			if (firstResult.state_code !== state) {
-				return res
-					.status(404)
-					.send("Sorry! No results were found matching your city and/or state.");
+				// return res
+				// 	.status(404)
+				// 	.send("Sorry! No results were found matching your city and/or state.");
+				return res.render("errorPage404");
 			}
 		}
 		// // Check if the state code is a match to the user input
@@ -205,74 +208,6 @@ app.get("/search", async (req, res) => {
 			console.log("Day time is false");
 		}
 
-		// Weather Condition Object - holds path to weather condition icon based on the currentWeatherConditionsData.weather[0].icon in the OpenWeather API response json object
-
-		// const weatherConditions = {
-		// 	"01d": "images/weather/day/sunny.svg",
-		// 	"01n": "images/weather/night/night.svg",
-
-		// 	"02d": "images/weather/day/partlyCloudy.svg",
-		// 	"02n": "images/weather/night/night.svg",
-
-		// 	"03d": "images/weather/day/cloudy.svg",
-		// 	"03n": "images/weather/night/cloudy.svg",
-
-		// 	"04d": "images/weather/day/cloudy.svg",
-		// 	"04n": "images/weather/night/cloudy.svg",
-
-		// 	"09d": "images/weather/day/rainShowers.svg",
-		// 	"09n": "public/images/weather/night/nightRainShowers.svg",
-
-		// 	"10d": "images/weather/day/rain.svg",
-		// 	"10d": "images/weather/day/rain.svg",
-
-		// 	"11d": "images/weather/day/thunderstorm.svg",
-		// 	"11n": "images/weather/night/thunderstorm.svg",
-
-		// 	"13d": "images/weather/day/snow.svg",
-		// 	"13n": "images/weather/night/snow.svg",
-
-		// 	"50d": "images/weather/day/snow.svg",
-		// 	"50n": "images/weather/night/snow.svg",
-		// };
-
-		// weatherConditions = {
-		// 	"01d": "images/weather/sunnyClear.jpg",
-		// 	"01n": "images/weather/night.jpg",
-
-		// 	"02d": "images/weather/partlyCloudy.jpg",
-		// 	"02n": "images/weather/night.jpg",
-
-		// 	"03d": "images/weather/cloudy.jpg",
-		// 	"03n": "images/weather/night.jpg",
-
-		// 	"04d": "images/weather/cloudy.jpg",
-		// 	"04n": "images/weather/night.jpg",
-
-		// 	"09d": "images/weather/raining.jpg",
-		// 	"09n": "images/weather/night.jpg",
-
-		// 	"10d": "images/weather/raining.jpg",
-		// 	"10d": "images/weather/night.jpg",
-
-		// 	"11d": "images/weather/thunderstorm.jpg",
-		// 	"11n": "images/weather/night.jpg",
-
-		// 	"13d": "images/weather/snowing.jpg",
-		// 	"13n": "images/weather/night.jpg",
-
-		// 	"50d": "images/weather/snowing.jpg",
-		// 	"50n": "images/weather/night.jpg",
-		// };
-
-		// console.log(weatherConditions);
-		// console.log("-----------------------");
-		// console.log(weatherConditions[currentWeatherConditionsData.weather[0].main]);
-		// console.log(`${weatherConditions[currentWeatherConditionsData.weather[0].icon]}`);
-
-		// Display the info
-		// res.send("Found a result!!!");
-
 		res.render("results", {
 			firstResult,
 			currentWeatherData,
@@ -282,7 +217,8 @@ app.get("/search", async (req, res) => {
 	} catch (error) {
 		// Some internal server error has occurred
 		console.log(`Error: ${error}`);
-		res.status(500).send("Internal server error. Please wait a moment and try again.");
+		// res.status(500).send("Internal server error. Please wait a moment and try again.");
+		res.render("errorPage500");
 	}
 });
 
