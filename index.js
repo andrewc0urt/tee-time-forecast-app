@@ -200,6 +200,6 @@ app.get("/search", async (req, res) => {
 });
 
 // Start the server
-app.listen(port, () => {
+app.listen(process.env.PORT || port, () => {
 	console.log(`Tee Time Forecast app listening on port ${port}`);
 });
