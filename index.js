@@ -91,10 +91,6 @@ app.get("/", (req, res) => {
 app.get("/search", async (req, res) => {
 	let { city, state, zipCode, formatted } = req.query;
 
-	// convert the city to title case to ensure it matches the Geoapify response values
-	// Convert the city to title case to ensure it matches the Geoapify response values
-	// const formattedCity = (city) => city.charAt(0).toUpperCase() + city.slice(1).toLowerCase();
-
 	// Define the formattedCity function so that all cities entered by a user in the form are converted to title case, including cities with multiple words (i.e. "jefferson city" --> "Jefferson City")
 	function titleCaseCityInput(someCity) {
 		// Split the city string by spaces
@@ -137,10 +133,15 @@ app.get("/search", async (req, res) => {
 
 		// response object
 		const results = response.data.results;
+		console.log(results[0]);
 		// console.log(results);
 
 		// Check to see if the API call returned any results
-		if (results.length === 0 || (results[0].city !== city && results[0].name !== city)) {
+		if (
+			results.length === 0 ||
+			(results[0].city !== city && results[0].name !== city && results[0].postcode !== zipCode)
+		) {
+			console.log("Got here");
 			// res.status(404).send("No results found. Please try again.");
 			return res.render("errorPage404");
 		}
@@ -148,29 +149,9 @@ app.get("/search", async (req, res) => {
 		// Check to see if the first result's city and state match the user's input
 		const firstResult = results[0];
 
-		// Check to ensure that firstResult object contains a city and state
-		// if (city && state) {
-		// 	// Check if either the city or the name matches the user input
-		// 	// firstResult should have either a city property or a name property (i.e. Keystone, CO --> has a name property, but not city property)
-		// 	if (
-		// 		(firstResult.city && firstResult.city !== city) ||
-		// 		(!firstResult.city && firstResult.name !== city)
-		// 	) {
-		// 		return res
-		// 			.status(404)
-		// 			.send("Sorry! No results were found matching your city and/or state.");
-		// 	}
-
-		// 	// Check if the state code is a match to the user input
-		// 	if (firstResult.state_code !== state) {
-		// 		return res
-		// 			.status(404)
-		// 			.send("Sorry! No results were found matching your city and/or state.");
-		// 	}
-		// }
-
 		// if the user doesn't submit a zip code and chooses to submit a city/state, check to make sure the returned result matches the state code
 		if (!zipCode) {
+			console.log("No zip code entered");
 			// Check if the state code is a match to the user input
 			if (firstResult.state_code !== state) {
 				// return res
@@ -179,34 +160,30 @@ app.get("/search", async (req, res) => {
 				return res.render("errorPage404");
 			}
 		}
-		// // Check if the state code is a match to the user input
-		// if (firstResult.state_code !== state) {
-		// 	return res.status(404).send("Sorry! No results were found matching your city and/or state.");
-		// }
 
 		// Otherwise, a match has been found, proceed with processing the results
-		console.log(firstResult.lon);
-		console.log(firstResult.lat);
-		// console.log(firstResult.city);
-		// console.log(firstResult.state);
-		console.log(firstResult.formatted);
+		// console.log(firstResult.lon);
+		// console.log(firstResult.lat);
+		// // console.log(firstResult.city);
+		// // console.log(firstResult.state);
+		// console.log(firstResult.formatted);
 
-		console.log(firstResult);
+		// console.log(firstResult);
 
 		// Call fetchWeatherData here, passing latitude and longitude
 		const { currentWeatherData, forecastData, currentWeatherConditionsData } =
 			await fetchWeatherData(firstResult.lat, firstResult.lon);
 
-		console.log("-------------INFO BELOW ----------------");
-		console.log(currentWeatherData);
-		console.log("----------------------------");
-		console.log(forecastData);
-		console.log(forecastData.properties.periods[0]);
-		if (forecastData.properties.periods[0].isDaytime) {
-			console.log("Daytime is true");
-		} else {
-			console.log("Day time is false");
-		}
+		// console.log("-------------INFO BELOW ----------------");
+		// console.log(currentWeatherData);
+		// console.log("----------------------------");
+		// console.log(forecastData);
+		// console.log(forecastData.properties.periods[0]);
+		// if (forecastData.properties.periods[0].isDaytime) {
+		// 	console.log("Daytime is true");
+		// } else {
+		// 	console.log("Day time is false");
+		// }
 
 		res.render("results", {
 			firstResult,

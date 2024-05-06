@@ -1,31 +1,3 @@
-console.log("linked");
-
-// Import objects from index.js
-// import { currentWeatherConditionsData, forecastData, weatherConditions } from "../../index";
-
-// // Access the section element where the current weather conditions will be displayed so that the background image can be set
-// const currentWeatherSection = document.querySelector(".item-3");
-
-// // // If it's night time, display the night background image
-// if (!forecastData.properties.periods[0].isDaytime) {
-// 	currentWeatherSection.style.backgroundImage =
-// 		"linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('../../images/weather/veronika-galkina-rvLvAXbEuqg-unsplash.jpg')";
-// }
-// // It's day time, so the background image will be based on the current weather condition description
-// else {
-// 	currentWeatherSection.style.backgroundImage =
-// 		"linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(`${weatherConditions[currentWeatherConditionsData.weather[0].icon]}`)";
-// }
-
-// console.log(currentWeatherConditionsData.weather[0].icon);
-// console.log(weatherConditions[currentWeatherConditionsData.weather[0].icon]);
-
-// console.log("hi");
-
-// access each data attribute from the script in results.ejs using its specific name and parse the JSON string into the corresponding object
-// const weatherConditionsObjectImages = JSON.parse(
-// 	document.currentScript.dataset.weatherConditionsImages
-// );
 const currentWeatherConditionsData = JSON.parse(
 	document.currentScript.dataset.currentWeatherConditionsData
 );
