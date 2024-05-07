@@ -3,7 +3,7 @@ const currentWeatherConditionsData = JSON.parse(
 );
 const weatherForecastData = JSON.parse(document.currentScript.dataset.weatherForecast);
 
-console.log(weatherForecastData);
+// console.log(weatherForecastData);
 
 // access the section element that holds the current weather conditions information
 const currentWeatherContainer = document.querySelector(".item-3");
@@ -72,7 +72,7 @@ try {
 		}
 	}
 } catch (error) {
-	console.error("Error setting background image:", error);
+	// console.error("Error setting background image:", error);
 	currentWeatherContainer.style.backgroundImage =
 		"linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('../images/weather/sunnyClear.jpg')";
 }

@@ -17,37 +17,37 @@ async function fetchWeatherData(latitude, longitude) {
 		const response1 = await axios.get(nationalWeatherServiceAPI);
 		const weatherMetadata = response1.data;
 
-		console.log(`Weather API URL: ${nationalWeatherServiceAPI}`);
-		console.log(`Weather Metadata: ${weatherMetadata}`);
+		// console.log(`Weather API URL: ${nationalWeatherServiceAPI}`);
+		// console.log(`Weather Metadata: ${weatherMetadata}`);
 
 		// Extract the URL used to get the multiday weather forecast and the URL to be used to get the local weather station code (which will then be used to get the current weather data)
 		const forecastURL = weatherMetadata.properties.forecast;
 		const allObservationStationsURL = weatherMetadata.properties.observationStations;
 
-		console.log(`Forecast URL: ${forecastURL}`);
-		console.log(`All Stations URL: ${allObservationStationsURL}`);
+		// console.log(`Forecast URL: ${forecastURL}`);
+		// console.log(`All Stations URL: ${allObservationStationsURL}`);
 
 		// Make the second API call to get the closest (in proximity) observation station URL
 		const response2 = await axios.get(allObservationStationsURL);
 		const allStationsData = response2.data;
 
-		console.log(`All Stations Data: ${allStationsData}`);
+		// console.log(`All Stations Data: ${allStationsData}`);
 
 		// Extract the first observation station URL (meaning it's the closest in proxmity to user's location)
 		const currentWeatherURL = allStationsData.observationStations[0];
-		console.log(`Current Weather URL: ${currentWeatherURL}`);
+		// console.log(`Current Weather URL: ${currentWeatherURL}`);
 
 		// Make the third API call to get the CURRENT weather from National Weather Service
 		const response3 = await axios.get(`${currentWeatherURL}/observations/latest`);
 		const currentWeatherData = response3.data;
 
-		console.log(`Current Weather Daa: ${currentWeatherData}`);
+		// console.log(`Current Weather Data: ${currentWeatherData}`);
 
 		// Make the FOURTH API call to get the multiday weather forecast from National Weather Service
 		const response4 = await axios.get(forecastURL);
 		const forecastData = response4.data;
 
-		console.log(`Future Forecast Data: ${forecastData}`);
+		// console.log(`Future Forecast Data: ${forecastData}`);
 
 		// OpenWeather API - To get better CURRENT weather data
 		const openWeatherAPI = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${openWeatherAPIKey}&units=imperial`;
@@ -55,14 +55,14 @@ async function fetchWeatherData(latitude, longitude) {
 		// API call to OpeanWeather API to get the current weather data
 		const response5 = await axios.get(openWeatherAPI);
 		const currentWeatherConditionsData = response5.data;
-		console.log("THIS IS THE NEWWW INFO");
-		console.log(currentWeatherConditionsData);
+		// console.log("THIS IS THE NEWWW INFO");
+		// console.log(currentWeatherConditionsData);
 
 		// Return all necessary weather data
 		return { currentWeatherData, forecastData, currentWeatherConditionsData };
 	} catch (error) {
 		// Handle any errors for the API calls
-		console.error("Error fetching data:", error.message);
+		// console.error("Error fetching data:", error.message);
 		throw error;
 	}
 }
@@ -103,7 +103,7 @@ app.get("/search", async (req, res) => {
 
 		// Join the capitalized words back together
 		const formattedCity = capitalizedWords.join(" ");
-		console.log(`FORMATTED CITY: ${formattedCity}`);
+		// console.log(`FORMATTED CITY: ${formattedCity}`);
 
 		return formattedCity;
 	}
@@ -133,7 +133,7 @@ app.get("/search", async (req, res) => {
 
 		// response object
 		const results = response.data.results;
-		console.log(results[0]);
+		// console.log(results[0]);
 		// console.log(results);
 
 		// Check to see if the API call returned any results
@@ -141,7 +141,6 @@ app.get("/search", async (req, res) => {
 			results.length === 0 ||
 			(results[0].city !== city && results[0].name !== city && results[0].postcode !== zipCode)
 		) {
-			console.log("Got here");
 			// res.status(404).send("No results found. Please try again.");
 			return res.render("errorPage404");
 		}
@@ -151,7 +150,7 @@ app.get("/search", async (req, res) => {
 
 		// if the user doesn't submit a zip code and chooses to submit a city/state, check to make sure the returned result matches the state code
 		if (!zipCode) {
-			console.log("No zip code entered");
+			// console.log("No zip code entered");
 			// Check if the state code is a match to the user input
 			if (firstResult.state_code !== state) {
 				// return res
@@ -193,7 +192,7 @@ app.get("/search", async (req, res) => {
 		});
 	} catch (error) {
 		// Some internal server error has occurred
-		console.log(`Error: ${error}`);
+		// console.log(`Error: ${error}`);
 		// res.status(500).send("Internal server error. Please wait a moment and try again.");
 		res.render("errorPage500");
 	}
